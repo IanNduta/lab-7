@@ -1,19 +1,36 @@
 <!DOCTYPE HTML>
-<html ng-app="hello">
+<html ng-app="converter">
     <head>
-        <title>A Very Angular Hello World</title>
+        <title>A Very Angular Temperature Converter</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
     </head>
     <body>
-       <h1 ng-controller="myCtrlr">{{message}}</h1>
+       <div ng-controller="tempCtrlr">
+        <h2>Enter a temperatrue in either input box to convert it to the corresponding temperatrue</h2>
+        <div>
+            Fahrenheit <input ng-model="f" ng-change="calculateC() " type='number'>
+        </div>
+        <div>
+            Celsius <input ng-model="c" ng-change="calculateF()" type='number'>
+        </div>
+       </div>
 
 		<script>
-    		var ngHelloApp = angular.module('hello', []);
+            var ngConverterApp = angular.module('converter', []);
+            ngConverterApp.controller('temCtrlr', function ($scope)
+            {
+                $scope.c = 0;
+                $scope.f = 0;
+                $scope.calculateC = function()
+                {
+                    $scope.c = Number((($scope.f-32) * 5/9).toFixed(1));
 
-       		ngHelloApp.controller('myCtrlr', function ($scope) 
-       		{
-            	$scope.message = "Hello World!";        
-        	});
+                }
+                $scope.calculateF = function()
+                {
+                    $scope.f = Number((($scope.c*9/5) + 32).toFixed(1));
+                }
+            });
 		</script> 
         
     </body>
